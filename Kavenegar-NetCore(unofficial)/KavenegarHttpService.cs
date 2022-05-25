@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using System.Globalization;
+﻿using Microsoft.Extensions.Options;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -48,66 +45,5 @@ namespace Kavenegar_NetCore_unofficial_
             return resp;
         }
     }
-    internal static class Helpers
-    {
-        public static long DateTimeToUnixTimestamp(this DateTime? dateTime)
-        {
-            if (!dateTime.HasValue) return 0;
-            try
-            {
-                var idateTime = dateTime.Value;
-                idateTime = new DateTime(idateTime.Year, idateTime.Month, idateTime.Day, idateTime.Hour, idateTime.Minute, idateTime.Second);
-                TimeSpan unixTimeSpan = (idateTime - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local).ToLocalTime());
-                return long.Parse(unixTimeSpan.TotalSeconds.ToString(CultureInfo.InvariantCulture));
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-        public static DateTime UnixTimestampToDateTime(this long unixTimeStamp)
-        {
-            try
-            {
-                return (new DateTime(1970, 1, 1, 0, 0, 0)).AddSeconds(unixTimeStamp);
-            }
-            catch
-            {
-                return DateTime.MaxValue;
-            }
-        }
-    }
-    public static class DiInjector
-    {
-        public static IServiceCollection AddKavenegar(this IServiceCollection services, Action<KavenegarConfig> kavenegarConfiguration)
-        {
-            var kav = new KavenegarConfig();
-            kavenegarConfiguration(kav);
-
-            services
-                .Configure(kavenegarConfiguration)
-                .AddShared(kav);
-            return services;
-        }
-        public static IServiceCollection AddKavenegar(this IServiceCollection services, IConfigurationSection kavenegarConfigurationSection)
-        {
-            var kav = kavenegarConfigurationSection.Get<KavenegarConfig>();
-
-            services
-                .Configure<KavenegarConfig>(kavenegarConfigurationSection)
-                .AddShared(kav);
-            return services;
-        }
-        static IServiceCollection AddShared(this IServiceCollection services, KavenegarConfig conf)
-        {
-            services.AddHttpClient<KavenegarHttpService>(cl => cl.BaseAddress = new Uri($"{conf.BaseUrl}/{conf.ApiKey}"));
-            return services;
-
-        }
-    }
-    public class KavenegarConfig
-    {
-        public string ApiKey { get; set; }
-        public string BaseUrl { get; set; }
-    }
+ 
 }

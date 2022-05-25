@@ -22,5 +22,11 @@ namespace Kavenegar_NetCore_unofficial_
     public record ReturnSend(Result @Return ,List<SendResult> entries );
 
     public record Result(int status ,string message );
-    
+
+
+    public class KavenegarConfig
+    {
+        public string ApiKey { get; set; }
+        public string BaseUrl { get; set; }
+    }
 }
