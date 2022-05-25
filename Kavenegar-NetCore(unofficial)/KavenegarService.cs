@@ -4,12 +4,12 @@ using Newtonsoft.Json;
 
 namespace Kavenegar_NetCore_unofficial_
 {
-    public class KavenegarHttpService
+    public class KavenegarService
     {
         private readonly HttpClient _httpClient;
         private readonly KavenegarConfig _config;
 
-        public KavenegarHttpService(HttpClient httpClient, IOptions<KavenegarConfig> options)
+        public KavenegarService(HttpClient httpClient, IOptions<KavenegarConfig> options)
         {
             _httpClient = httpClient;
             this._config = options.Value;

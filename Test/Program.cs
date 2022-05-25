@@ -11,5 +11,5 @@ var serviceProvider = new ServiceCollection()
             })
             .BuildServiceProvider();
 
-var ser = serviceProvider.GetRequiredService<KavenegarHttpService>();
+var ser = serviceProvider.GetRequiredService<KavenegarService>();
 var t = await ser.Send(new string[] { "091211111111" }, "دلام", "10004346");
