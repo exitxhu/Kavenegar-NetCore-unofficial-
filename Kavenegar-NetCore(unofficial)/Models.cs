@@ -28,6 +28,7 @@ namespace Kavenegar_NetCore_unofficial_
     {
         public string ApiKey { get; set; }
         public string BaseUrl { get; set; }
+        public string SenderNumber { get; set; }
         public Uri GetUri() => new Uri($"{BaseUrl}/{ApiKey}");
     }
 }

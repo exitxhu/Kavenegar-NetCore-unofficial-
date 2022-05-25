@@ -14,9 +14,9 @@ namespace Kavenegar_NetCore_unofficial_
             _httpClient = httpClient;
             this._config = options.Value;
         }
-        public async Task<ReturnSend> Send(IEnumerable<string> recievers, string message, string sender, MessageType? type = MessageType.MobileMemory, DateTime? date = null, List<string> localids = null)
+        public async Task<ReturnSend> Send(IEnumerable<string> recievers, string message, string? sender = null, MessageType? type = MessageType.MobileMemory, DateTime? date = null, List<string> localids = null)
         {
-            List<KeyValuePair<string, string>> param = ParamMaker(recievers, message, sender, type, date);
+            List<KeyValuePair<string, string>> param = ParamMaker(recievers, message, sender ?? _config.SenderNumber , type, date);
             return await Call(param, "/sms/send.json");
         }
 
