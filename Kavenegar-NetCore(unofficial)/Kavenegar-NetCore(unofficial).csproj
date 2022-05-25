@@ -10,7 +10,7 @@
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/exitxhu/Kavenegar-NetCore-unofficial-</RepositoryUrl>
     <PackageTags>Kavenegar;kavenegar;</PackageTags>
-    <Version>1.0</Version>
+    <Version>1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
