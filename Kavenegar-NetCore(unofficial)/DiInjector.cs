@@ -26,10 +26,10 @@ namespace Kavenegar_NetCore_unofficial_
         }
         static IServiceCollection AddShared(this IServiceCollection services, KavenegarConfig conf)
         {
-            services.AddHttpClient<KavenegarHttpService>(cl => cl.BaseAddress = new Uri($"{conf.BaseUrl}/{conf.ApiKey}"));
+            services.AddHttpClient<KavenegarHttpService>(cl => cl.BaseAddress = conf.GetUri());
             return services;
 
         }
     }
- 
+
 }

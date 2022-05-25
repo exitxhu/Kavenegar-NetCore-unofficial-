@@ -7,12 +7,12 @@ namespace Kavenegar_NetCore_unofficial_
     public class KavenegarHttpService
     {
         private readonly HttpClient _httpClient;
-        private readonly IOptions<KavenegarConfig> _options;
+        private readonly KavenegarConfig _config;
 
         public KavenegarHttpService(HttpClient httpClient, IOptions<KavenegarConfig> options)
         {
             _httpClient = httpClient;
-            this._options = options;
+            this._config = options.Value;
         }
         public async Task<ReturnSend> Send(IEnumerable<string> recievers, string message, string sender, MessageType? type = MessageType.MobileMemory, DateTime? date = null, List<string> localids = null)
         {
@@ -37,7 +37,7 @@ namespace Kavenegar_NetCore_unofficial_
 
         private async Task<ReturnSend> Call(List<KeyValuePair<string, string>> param, string endpoint)
         {
-            var sendUri = new Uri(_httpClient.BaseAddress + endpoint);
+            var sendUri = new Uri(_config.GetUri() + endpoint);
             var postdata = new FormUrlEncodedContent(param);
             var res = await _httpClient.PostAsync(sendUri, postdata);
             var tx = await res.Content.ReadAsStringAsync();
